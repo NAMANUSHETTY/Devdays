@@ -5,6 +5,8 @@ applyTo: '**/*.test.ts'
 
 # Unit Testing Guidelines (Vitest + Drizzle/Node SQLite)
 
+Use [`comments.instructions.md`](comments.instructions.md) for comments in test helpers and fixtures: explain why a non-obvious fixture or setup choice matters, not what the test statement already says.
+
 Unit tests run with **Vitest** (`npm run test:unit`). They cover the two highest-value, framework-free layers:
 
 1. **Pure transforms** (`db/transforms.ts`) — CSV parsing, description building, de-duplication, deterministic ratings.

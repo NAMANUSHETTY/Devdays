@@ -5,6 +5,8 @@ applyTo: '**/*.astro'
 
 # Astro Component Instructions
 
+For the repository-wide comment and documentation policy, see [`comments.instructions.md`](comments.instructions.md). In particular, reusable component props must be documented and comments must explain intent rather than restating markup or control flow.
+
 ## Astro Component Patterns
 
 Astro handles everything in the UI: pages, layouts, components, routing, and content. The site is **fully prerendered** (`output: 'static'`) — there is no client-side UI framework and no separate API server. Pages read data **directly in frontmatter** at build time via the Drizzle/Node SQLite data-access helpers in `src/lib/`.
@@ -113,6 +115,8 @@ There is no Svelte/React layer. When a page genuinely needs client behaviour, ad
 - Type component imports and helper return values
 - Run `npx astro sync` to (re)generate route/content types before linting or type-checking
 - `.astro` files are type-checked by `npm run typecheck:astro` (which runs `astro sync` then `astro check`), on the classic `typescript` package. The pure TypeScript in `db/`, `src/lib/`, and `src/types/` is type-checked separately by `npm run typecheck` (the native TS 7 compiler, `tsgo`), which does **not** process `.astro` files.
+- Document every reusable component and layout `Props` interface, including non-obvious prop requirements and accessibility behavior. Add property-level comments when a prop's purpose or constraints are not obvious.
+- Use TSDoc comments for exported TypeScript APIs; comments should explain intent and decisions, never paraphrase the template.
 
 ## Best Practices
 

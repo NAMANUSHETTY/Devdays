@@ -17,6 +17,7 @@ This file defines the central UI development strategy for Tailspin Toys. Technol
 Refer to technology-specific instruction files:
 - [`astro.instructions.md`](astro.instructions.md) - Astro pages, layouts, and components
 - [`style.instructions.md`](style.instructions.md) - Tailwind CSS styling patterns
+- [`comments.instructions.md`](comments.instructions.md) - comments, TSDoc, and component prop documentation
 
 ## Core Principles
 
@@ -50,6 +51,12 @@ Refer to technology-specific instruction files:
 - Keep components focused on a single responsibility
 - Use props for configuration, not duplication
 - Document component APIs with TypeScript types
+- Document every reusable component and layout `Props` interface; explain non-obvious prop requirements and accessibility expectations.
+
+### Comments and documentation
+
+- Comment the intent, constraint, or decision behind a component—not markup or styling that is already self-explanatory.
+- Remove comments that merely paraphrase code, and update comments in the same change as the code they describe.
 
 ## Development Workflow
 
