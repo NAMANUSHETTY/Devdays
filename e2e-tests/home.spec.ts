@@ -24,4 +24,34 @@ test.describe('Home Page', () => {
     // Check that the welcome message is present using more specific locator
     await expect(page.getByText('Find your next game! And maybe even back one! Explore our collection!')).toBeVisible();
   });
+
+  test('should filter games by category and publisher together', async ({ page }) => {
+    const visibleCards = page.locator('[data-testid="game-card"]:visible');
+    const strategyFilter = page.locator('label', { hasText: 'Strategy' }).locator('input[type="checkbox"]');
+    const publisherFilter = page.getByTestId('publisher-filter');
+    const allGamesCount = await visibleCards.count();
+
+    await strategyFilter.check();
+    const strategyGamesCount = await visibleCards.count();
+    expect(strategyGamesCount).toBeGreaterThan(0);
+    expect(strategyGamesCount).toBeLessThan(allGamesCount);
+    await expect(page.getByTestId('filter-status')).toHaveText(`Showing ${strategyGamesCount} games`);
+
+    await publisherFilter.selectOption({ label: 'CodeForge Studios' });
+    const combinedGamesCount = await visibleCards.count();
+    expect(combinedGamesCount).toBeGreaterThan(0);
+    expect(combinedGamesCount).toBeLessThan(strategyGamesCount);
+  });
+
+  test('should clear active filters and show all games again', async ({ page }) => {
+    const visibleCards = page.locator('[data-testid="game-card"]:visible');
+
+    await page.locator('label', { hasText: 'Puzzle' }).locator('input[type="checkbox"]').check();
+    await page.getByTestId('publisher-filter').selectOption({ label: 'GitHub Games' });
+    expect(await visibleCards.count()).toBeGreaterThan(0);
+
+    await page.getByTestId('reset-filters').click();
+    const allGamesCount = await visibleCards.count();
+    await expect(page.getByTestId('filter-status')).toHaveText(`Showing ${allGamesCount} games`);
+  });
 });
